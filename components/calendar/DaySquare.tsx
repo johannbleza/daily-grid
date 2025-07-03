@@ -4,30 +4,47 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { months } from "@/lib/constants";
+import { borderRadius, colorMap, months, squareSize } from "@/lib/constants";
 
 interface DaySquareProps {
   showMonths: boolean;
   date: string;
+  color: keyof typeof colorMap;
 }
 
-const DaySquare = ({ date, showMonths }: DaySquareProps) => {
+const DaySquare = ({ date, showMonths, color }: DaySquareProps) => {
   const today = new Date();
   const [month, day] = date.split("/").map(Number);
+  const currentDate = today.toLocaleDateString();
+  const dateObj = new Date(date);
+
+  const isToday = date === currentDate;
+  const isFuture = today < dateObj;
 
   return (
     <div>
       {showMonths && day === 1 && (
-        <h1 className="absolute top-[8px] text-xs text-gray-400">
+        <h1
+          className="absolute top-[6px] text-gray-400"
+          style={{ fontSize: squareSize }}
+        >
           {months[month - 1]}
         </h1>
       )}
       <div
         className={cn(
-          "bg-blue-400/20 size-4 rounded",
-          date === today.toLocaleDateString() && "bg-blue-400",
-          today < new Date(date) && "bg-blue-400/15",
+          "size-4",
+          isToday
+            ? colorMap[color].normal
+            : isFuture
+              ? colorMap[color].light
+              : colorMap[color].dark,
         )}
+        style={{
+          height: squareSize,
+          width: squareSize,
+          borderRadius: borderRadius,
+        }}
         onClick={() => console.log({ date })}
       >
         <Tooltip>

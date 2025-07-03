@@ -1,17 +1,19 @@
 "use client";
 import DaySquare from "@/components/calendar/DaySquare";
-import { daysOfWeek } from "@/lib/constants";
+import { colorMap, daysOfWeek, gridGap, squareSize } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { useEffect, useRef } from "react";
 
 interface HeatMapProps {
   showDaysOfWeek?: boolean;
   showMonths?: boolean;
+  color?: keyof typeof colorMap;
 }
 
 const HeatMap = ({
   showMonths = false,
   showDaysOfWeek = false,
+  color = "lime",
 }: HeatMapProps) => {
   const today = new Date();
   const currentYear = today.getFullYear();
@@ -45,26 +47,44 @@ const HeatMap = ({
   }, []);
 
   return (
-    <div className="bg-gray-950 rounded flex items-center justify-center min-w-[360px]">
+    <div className="bg-gray-950 flex items-center justify-center w-[360px] min-[400px]:w-[400px]">
       <div
         className={cn(
           "p-2 grid grid-flow-col grid-rows-7 gap-1 shadow-2xl",
-          showDaysOfWeek && "p-4 pt-8",
+          showDaysOfWeek && "p-4 pt-6",
         )}
+        style={{ gap: gridGap }}
       >
         {showDaysOfWeek &&
           daysOfWeek.map((day) => (
-            <h1 key={day} className="size-4 rounded text-xs text-gray-400">
+            <h1
+              key={day}
+              className="flex justify-start items-center text-gray-400"
+              style={{
+                height: squareSize,
+                width: squareSize,
+                fontSize: squareSize - 1,
+              }}
+            >
               {day}
             </h1>
           ))}
       </div>
       <div
-        className="relative grid grid-flow-col grid-rows-7 gap-1 p-4 pt-8 overflow-x-scroll"
+        className={cn(
+          "relative grid grid-flow-col grid-rows-7 gap-1 p-4  overflow-x-scroll",
+          showMonths && "p-4 pt-6",
+        )}
         ref={scrollRef}
+        style={{ gap: gridGap }}
       >
         {days.map((day) => (
-          <DaySquare key={day} date={day} showMonths={showMonths} />
+          <DaySquare
+            key={day}
+            date={day}
+            showMonths={showMonths}
+            color={color}
+          />
         ))}
       </div>
     </div>
