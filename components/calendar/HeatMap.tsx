@@ -13,7 +13,7 @@ interface HeatMapProps {
 const HeatMap = ({
   showMonths = false,
   showDaysOfWeek = false,
-  color = "lime",
+  color = "slate",
 }: HeatMapProps) => {
   const today = new Date();
   const currentYear = today.getFullYear();
@@ -47,7 +47,7 @@ const HeatMap = ({
   }, []);
 
   return (
-    <div className="bg-gray-950 flex items-center justify-center w-[360px] min-[400px]:w-[400px]">
+    <div className=" flex items-center justify-center w-[360px] min-[400px]:w-[400px] md:w-[40rem]">
       <div
         className={cn(
           "p-2 grid grid-flow-col grid-rows-7 gap-1 shadow-2xl",

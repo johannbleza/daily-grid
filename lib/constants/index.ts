@@ -112,4 +112,29 @@ export const colorMap: Record<
     normal: "bg-rose-400/80",
     dark: "bg-rose-400/15",
   },
+  slate: {
+    light: "bg-slate-400/10",
+    normal: "bg-slate-400/80",
+    dark: "bg-slate-400/15",
+  },
+  gray: {
+    light: "bg-gray-400/10",
+    normal: "bg-gray-400/80",
+    dark: "bg-gray-400/15",
+  },
+  zinc: {
+    light: "bg-zinc-400/10",
+    normal: "bg-zinc-400/80",
+    dark: "bg-zinc-400/15",
+  },
+  neutral: {
+    light: "bg-neutral-400/10",
+    normal: "bg-neutral-400/80",
+    dark: "bg-neutral-400/15",
+  },
+  stone: {
+    light: "bg-stone-400/10",
+    normal: "bg-stone-400/80",
+    dark: "bg-stone-400/15",
+  },
 };
