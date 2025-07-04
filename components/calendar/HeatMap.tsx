@@ -2,7 +2,7 @@
 import DaySquare from "@/components/calendar/DaySquare";
 import { colorMap, daysOfWeek, gridGap, squareSize } from "@/lib/constants";
 import { cn } from "@/lib/utils";
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 
 interface HeatMapProps {
   showDaysOfWeek?: boolean;
@@ -19,24 +19,27 @@ const HeatMap = ({
   const currentYear = today.getFullYear();
   const currentMonth = today.getMonth();
 
-  const startDate = new Date(currentYear, currentMonth - 12, 1); // 6 Months Ago
-  const endDate = new Date();
+  const days = useMemo(() => {
+    const startDate = new Date(currentYear, currentMonth - 12, 1); // 6 Months Ago
+    const endDate = new Date();
+    // Set times to midnight
+    startDate.setHours(0, 0, 0, 0);
+    endDate.setHours(0, 0, 0, 0);
 
-  // Set times to midnight
-  startDate.setHours(0, 0, 0, 0);
-  endDate.setHours(0, 0, 0, 0);
+    startDate.setDate(startDate.getDate() - startDate.getDay()); // Sunday Start
+    endDate.setDate(endDate.getDate() + (7 - endDate.getDay())); // Saturday End
 
-  startDate.setDate(startDate.getDate() - startDate.getDay()); // Sunday Start
-  endDate.setDate(endDate.getDate() + (7 - endDate.getDay())); // Saturday End
+    const results = [];
 
-  const days = [];
+    while (startDate.toLocaleDateString() != endDate.toLocaleDateString()) {
+      results.push(startDate.toLocaleDateString());
 
-  while (startDate.toLocaleDateString() != endDate.toLocaleDateString()) {
-    days.push(startDate.toLocaleDateString());
+      // Iterator
+      startDate.setDate(startDate.getDate() + 1);
+    }
 
-    // Iterator
-    startDate.setDate(startDate.getDate() + 1);
-  }
+    return results;
+  }, [currentYear, currentMonth]);
 
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -47,7 +50,7 @@ const HeatMap = ({
   }, []);
 
   return (
-    <div className=" flex items-center justify-center w-[360px] min-[400px]:w-[400px] md:w-[40rem]">
+    <div className=" flex items-center justify-center w-[360px] min-[400px]:w-[400px]">
       <div
         className={cn(
           "p-2 grid grid-flow-col grid-rows-7 gap-1 shadow-2xl",

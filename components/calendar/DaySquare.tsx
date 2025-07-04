@@ -1,9 +1,4 @@
 import { cn } from "@/lib/utils";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { borderRadius, colorMap, months, squareSize } from "@/lib/constants";
 
 interface DaySquareProps {
@@ -45,13 +40,7 @@ const DaySquare = ({ date, showMonths, color }: DaySquareProps) => {
           width: squareSize,
           borderRadius: borderRadius,
         }}
-        onClick={() => console.log({ date })}
-      >
-        <Tooltip>
-          <TooltipTrigger className="size-4 max-sm:hidden"></TooltipTrigger>
-          <TooltipContent>{date}</TooltipContent>
-        </Tooltip>
-      </div>
+      ></div>
     </div>
   );
 };

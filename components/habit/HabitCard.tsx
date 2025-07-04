@@ -1,6 +1,6 @@
-import { Book, Check } from "lucide-react";
-import HeatMap from "../calendar/HeatMap";
+import { Check, Dumbbell } from "lucide-react";
 import { colorMap } from "@/lib/constants";
+import HabitDrawer from "./HabitDrawer";
 interface HabitCardProps {
   color?: keyof typeof colorMap;
 }
@@ -10,15 +10,15 @@ const HabitCard = ({ color = "slate" }: HabitCardProps) => {
       <div className="flex justify-between w-full px-4">
         <div className="flex items-center  justify-center gap-2">
           <div className={`p-2 ${colorMap[color].dark} rounded-lg`}>
-            <Book className="text-gray-300" />
+            <Dumbbell className="text-gray-300" />
           </div>
-          <h2 className="text-sm">Read a Book</h2>
+          <h2 className="text-sm">Gym</h2>
         </div>
         <div className={`p-2 ${colorMap[color].normal} rounded-lg`}>
           <Check className="text-gray-300" />
         </div>
       </div>
-      <HeatMap color={color} />
+      <HabitDrawer />
     </div>
   );
 };
