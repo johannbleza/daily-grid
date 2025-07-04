@@ -50,19 +50,22 @@ const Calendar = () => {
         {results.map((item) => {
           const [month, day] = item.split("/").map(Number);
           return (
-            <div key={item} className="relative">
+            <div
+              key={item}
+              className="relative flex justify-center items-center"
+            >
               <div
                 className={cn(
                   "text-sm text-zinc-300 rounded flex size-6 justify-center items-center",
                   month != date.getMonth() + 1 && "text-zinc-600",
-                  item === today.toLocaleDateString() && "bg-zinc-400/80",
+                  // item === today.toLocaleDateString() && "bg-zinc-400/80",
                 )}
               >
                 {day}
               </div>
               <div
                 className={cn(
-                  "absolute size-1 rounded-full bg-zinc-400 right-[10px] bottom-[-10px] ",
+                  "absolute size-1 rounded-full bg-zinc-400  bottom-[-10px]",
 
                   item != today.toLocaleDateString() && "hidden",
                 )}

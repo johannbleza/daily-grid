@@ -26,7 +26,7 @@ const HabitDrawer = () => {
               <DrawerDescription>No description.</DrawerDescription>
             </div>
           </div>
-          <Edit className="size" />
+          <Edit className="size-5" />
         </DrawerHeader>
         <HeatMap showDaysOfWeek={true} showMonths={true} />
         <Calendar />
