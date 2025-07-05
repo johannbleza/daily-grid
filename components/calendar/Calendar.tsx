@@ -2,7 +2,7 @@
 import { daysOfWeek, months } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { CalendarDays, ChevronLeft, ChevronRight } from "lucide-react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 const Calendar = () => {
   const today = new Date();
@@ -20,24 +20,28 @@ const Calendar = () => {
     setDate(newDate);
   };
 
-  const startDate = new Date(date.getFullYear(), date.getMonth(), 1);
-  const endDate = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+  const days = useMemo(() => {
+    const startDate = new Date(date.getFullYear(), date.getMonth(), 1);
+    const endDate = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 
-  // Set times to midnight
-  startDate.setHours(0, 0, 0, 0);
-  endDate.setHours(0, 0, 0, 0);
+    // Set times to midnight
+    startDate.setHours(0, 0, 0, 0);
+    endDate.setHours(0, 0, 0, 0);
 
-  startDate.setDate(startDate.getDate() - startDate.getDay()); // Sunday Start
-  endDate.setDate(endDate.getDate() + (7 - endDate.getDay())); // Saturday End
+    startDate.setDate(startDate.getDate() - startDate.getDay()); // Sunday Start
+    endDate.setDate(endDate.getDate() + (7 - endDate.getDay())); // Saturday End
 
-  const results = [];
+    const results = [];
 
-  while (startDate.toLocaleDateString() != endDate.toLocaleDateString()) {
-    results.push(startDate.toLocaleDateString());
+    while (startDate.toLocaleDateString() != endDate.toLocaleDateString()) {
+      results.push(startDate.toLocaleDateString());
 
-    // Iterator
-    startDate.setDate(startDate.getDate() + 1);
-  }
+      // Iterator
+      startDate.setDate(startDate.getDate() + 1);
+    }
+
+    return results;
+  }, [date]);
 
   return (
     <div className="border-t-1 mt-4 p-4">
@@ -47,7 +51,7 @@ const Calendar = () => {
             {day}
           </h2>
         ))}
-        {results.map((item) => {
+        {days.map((item) => {
           const [month, day] = item.split("/").map(Number);
           return (
             <div

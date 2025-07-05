@@ -1,19 +1,27 @@
 import { Grid2x2Check } from "lucide-react";
-import { Button } from "../ui/button";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 
 const AppBar = () => {
   return (
-    <nav className="fixed w-full">
-      <div className="max-w-[52rem] mx-auto text-zinc-400 px-4  py-5 flex justify-between items-center">
-        <div className="flex justify-center items-center gap-2">
-          <Grid2x2Check /> <h1 className="font-bold text-2xl">DailyGrid</h1>
+    <div className="w-full">
+      <div className="max-w-[52rem] mx-auto p-4 flex justify-between items-center shadow-xl">
+        <div className="flex justify-center items-center gap-2 text-zinc-300">
+          <Grid2x2Check className="size-8" />
+          <div className="flex flex-col justify-center items-start">
+            <h1 className="font-bold  text-lg mt-[-4px]">DailyGrid</h1>
+            <p className="text-zinc-400 text-xs mt-[-4px] text-[10px]">
+              Track your daily habits.
+            </p>
+          </div>
         </div>
-        <div className="flex gap-2">{/* <Plus /> */}</div>
-        <Button variant="outline">
-          <h1>Sign In</h1>
-        </Button>
+        <SignedOut>
+          <SignInButton>Sign In</SignInButton>
+        </SignedOut>
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
       </div>
-    </nav>
+    </div>
   );
 };
 

@@ -50,7 +50,7 @@ const HeatMap = ({
   }, []);
 
   return (
-    <div className=" flex items-center justify-center w-[360px] min-[400px]:w-[400px]">
+    <div className=" flex items-center justify-center w-[350px] min-[400px]:w-[400px]">
       <div
         className={cn(
           "p-2 grid grid-flow-col grid-rows-7 gap-1 shadow-2xl",
