@@ -1,5 +1,3 @@
-"use client";
-
 import * as React from "react";
 import {
   Activity,
@@ -42,6 +40,7 @@ import {
   Smile,
   Star,
   Zap,
+  LucideIcon, // Import LucideIcon type
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -56,7 +55,18 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 
-const iconCategories = {
+// Define a type for a single icon
+type IconItem = {
+  name: string;
+  icon: LucideIcon; // Use LucideIcon for the icon component
+};
+
+// Define a type for the iconCategories object
+type IconCategories = {
+  [category: string]: IconItem[];
+};
+
+const iconCategories: IconCategories = {
   "Fitness & Health": [
     { name: "Activity", icon: Activity },
     { name: "Dumbbell", icon: Dumbbell },
@@ -116,10 +126,8 @@ const iconCategories = {
 
 interface IconPickerProps {
   selectedIcon?: string;
-  onIconSelect: (
-    iconName: string,
-    IconComponent: React.ComponentType<any>,
-  ) => void;
+  // Ensure that IconComponent is of type LucideIcon
+  onIconSelect: (iconName: string, IconComponent: LucideIcon) => void;
 }
 
 export default function IconPicker({
@@ -130,13 +138,15 @@ export default function IconPicker({
   const [searchQuery, setSearchQuery] = React.useState("");
 
   // Get all icons for searching
-  const allIcons = Object.values(iconCategories).flat();
+  const allIcons = React.useMemo(() => {
+    return Object.values(iconCategories).flat();
+  }, []); // Memoize allIcons since it doesn't change
 
   // Filter icons based on search query
   const filteredCategories = React.useMemo(() => {
     if (!searchQuery) return iconCategories;
 
-    const filtered: typeof iconCategories = {};
+    const filtered: IconCategories = {}; // Use the defined IconCategories type
     Object.entries(iconCategories).forEach(([category, icons]) => {
       const matchingIcons = icons.filter((icon) =>
         icon.name.toLowerCase().includes(searchQuery.toLowerCase()),
@@ -175,7 +185,7 @@ export default function IconPicker({
           )}
         >
           {SelectedIconComponent ? (
-            <SelectedIconComponent className="size-8" />
+            <SelectedIconComponent className="size-8 text-zinc-400" />
           ) : (
             <div className="text-xs text-muted-foreground">+</div>
           )}
@@ -236,7 +246,7 @@ export default function IconPicker({
             )}
             {Object.keys(filteredCategories).length === 0 && (
               <div className="py-8 text-center text-sm text-muted-foreground">
-                No icons found matching "{searchQuery}"
+                No icons found matching &quot;{searchQuery}&quot;
               </div>
             )}
           </div>
