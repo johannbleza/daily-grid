@@ -178,16 +178,16 @@ export default function IconPicker({
           variant="outline"
           size="icon"
           className={cn(
-            "h-16 w-16 rounded-full border-2 border-dashed",
+            "size-20 rounded-full border-2 border-dashed",
             selectedIcon
               ? "border-solid border-primary"
               : "border-muted-foreground/50",
           )}
         >
           {SelectedIconComponent ? (
-            <SelectedIconComponent className="size-8 text-zinc-400" />
+            <SelectedIconComponent className="size-10 text-zinc-400" />
           ) : (
-            <div className="text-xs text-muted-foreground">+</div>
+            <div className="text-2xl text-muted-foreground">+</div>
           )}
         </Button>
       </DialogTrigger>
