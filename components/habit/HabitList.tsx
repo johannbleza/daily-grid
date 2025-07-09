@@ -36,18 +36,27 @@ const HabitList = () => {
           <AddHabitDrawer onAdd={fetchHabits} />
         </div>
       </div>
-      <div className="sm:grid grid-cols-2 gap-4 flex flex-col">
-        {habits.map(({ id, name, icon, description }) => (
-          <HabitCard
-            onEdit={fetchHabits}
-            key={id}
-            id={id!}
-            name={name}
-            icon={icon}
-            description={description!}
-          />
-        ))}
-      </div>
+      {habits.length != 0 ? (
+        <div className="sm:grid grid-cols-2 gap-4 flex flex-col">
+          {habits.map(({ id, name, icon, description }) => (
+            <HabitCard
+              onEdit={fetchHabits}
+              key={id}
+              id={id!}
+              name={name}
+              icon={icon}
+              description={description!}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="flex flex-col justify-center items-center mt-12 gap-2 w-full">
+          <h1 className="text-zinc-300 text-lg">No habits yet</h1>
+          <p className="text-zinc-400">
+            Click &quot;Add +&quot; to get started.
+          </p>
+        </div>
+      )}
     </div>
   );
 };
