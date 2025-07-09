@@ -1,6 +1,7 @@
 "use client";
 import {
   Drawer,
+  DrawerClose,
   DrawerContent,
   DrawerHeader,
   DrawerTitle,
@@ -21,13 +22,15 @@ import IconPicker from "./IconPicker";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { addHabit } from "@/lib/actions/habit.actions";
+import { useState } from "react";
 
 const formSchema = z.object({
   icon: z.string().min(2, {
     message: "Icon is required.",
   }),
   name: z.string().min(2, {
-    message: "Habit name must be at least 2 characters.",
+    message: "Name must be at least 2 characters.",
   }),
   description: z.string(),
 });
@@ -42,19 +45,22 @@ const AddHabitDrawer = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-  }
+  const [open, setOpen] = useState(false);
+
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    await addHabit(values);
+    setOpen(false);
+  };
 
   return (
-    <Drawer>
+    <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild onClick={() => form.reset()}>
         <Button variant="outline">
           <span>Add</span>
           <Plus />
         </Button>
       </DrawerTrigger>
-      <DrawerContent className="min-h-6/10  max-w-[28rem] mx-auto">
+      <DrawerContent className="min-h-7/10  max-w-[28rem] mx-auto">
         <DrawerHeader>
           <DrawerTitle className="text-2xl">New Habit</DrawerTitle>
         </DrawerHeader>
@@ -84,7 +90,7 @@ const AddHabitDrawer = () => {
                     <FormLabel>Name</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="e.g., Read for 30 minutes"
+                        placeholder="e.g., Go to the gym, Read for 30 minutes"
                         {...field}
                       />
                     </FormControl>
@@ -108,9 +114,16 @@ const AddHabitDrawer = () => {
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="w-full">
-                Submit
-              </Button>
+              <div className="flex flex-col gap-4">
+                <Button type="submit" className="w-full">
+                  Submit
+                </Button>
+                <DrawerClose asChild>
+                  <Button variant="outline" className="w-full">
+                    Cancel
+                  </Button>
+                </DrawerClose>
+              </div>
             </form>
           </Form>{" "}
         </div>
