@@ -1,4 +1,3 @@
-import { Edit } from "lucide-react";
 import HeatMap from "../calendar/HeatMap";
 import {
   Drawer,
@@ -11,6 +10,7 @@ import {
 import Calendar from "../calendar/Calendar";
 import { iconMap } from "@/lib/constants";
 import { Day } from "@/lib/types/day";
+import EditHabitDrawer from "./EditHabitDrawer";
 
 interface HabitDrawerProps {
   id: string;
@@ -19,6 +19,7 @@ interface HabitDrawerProps {
   icon: string;
   completedDays: Day[];
   onAction: () => void;
+  onEdit: () => void;
 }
 
 const HabitDrawer = ({
@@ -28,6 +29,7 @@ const HabitDrawer = ({
   icon,
   completedDays,
   onAction,
+  onEdit,
 }: HabitDrawerProps) => {
   const Icon = iconMap[icon];
   return (
@@ -48,7 +50,13 @@ const HabitDrawer = ({
               </DrawerDescription>
             </div>
           </div>
-          <Edit className="size-5" />
+          <EditHabitDrawer
+            habit_id={id}
+            onEdit={onEdit}
+            name={name}
+            description={description}
+            icon={icon}
+          />
         </DrawerHeader>
         <HeatMap
           showDaysOfWeek={true}

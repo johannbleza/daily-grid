@@ -8,8 +8,12 @@ export const completeDay = async (formData: Day) => {
   if (error) console.log(error);
 };
 
-export const removeDay = async (date: string) => {
-  const { error } = await supabase.from("day").delete().eq("date", date);
+export const removeDay = async (habit_id: string, date: string) => {
+  const { error } = await supabase
+    .from("day")
+    .delete()
+    .eq("habit_id", habit_id)
+    .eq("date", date);
   if (error) console.log(error);
 };
 

@@ -65,7 +65,6 @@ import {
   Rocket,
   Sparkles,
   type LucideIcon,
-  Plus,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -81,6 +80,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import React from "react";
+import { iconMap } from "@/lib/constants";
 
 // Type-safe icon definition
 interface IconDefinition {
@@ -194,6 +194,7 @@ type IconName = (typeof iconCategories)[IconCategory][number]["name"];
 interface IconPickerProps {
   selectedIcon?: IconName;
   onIconSelect: (iconName: IconName, IconComponent: LucideIcon) => void;
+  placeHolder?: IconName;
 }
 
 // Type-safe filtered categories type
@@ -202,6 +203,7 @@ type FilteredCategories = Partial<Record<IconCategory, IconDefinition[]>>;
 export default function IconPicker({
   selectedIcon,
   onIconSelect,
+  placeHolder,
 }: IconPickerProps) {
   const [open, setOpen] = React.useState<boolean>(false);
   const [searchQuery, setSearchQuery] = React.useState<string>("");
@@ -252,6 +254,8 @@ export default function IconPicker({
 
   const SelectedIconComponent: LucideIcon | undefined = selectedIconData?.icon;
 
+  const Placeholder = iconMap[placeHolder ?? "Plus"];
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -268,7 +272,7 @@ export default function IconPicker({
           {SelectedIconComponent ? (
             <SelectedIconComponent className="size-10 text-zinc-300" />
           ) : (
-            <Plus className="size-6 text-muted-foreground" />
+            <Placeholder className="size-6 text-muted-foreground" />
           )}
         </Button>
       </DialogTrigger>

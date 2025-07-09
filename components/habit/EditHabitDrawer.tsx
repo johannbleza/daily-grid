@@ -17,13 +17,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Plus } from "lucide-react";
+import { Edit } from "lucide-react";
 import IconPicker from "./IconPicker";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { addHabit } from "@/lib/actions/habit.actions";
+import { editHabit } from "@/lib/actions/habit.actions";
 import { useState } from "react";
+import DeleteHabitDialog from "./DeleteHabitDialog";
 
 const formSchema = z.object({
   icon: z.string().min(2, {
@@ -35,39 +36,46 @@ const formSchema = z.object({
   description: z.string(),
 });
 
-interface AddHabitDrawerProps {
-  onAdd: () => void;
+interface EditHabitDrawer {
+  habit_id: string;
+  onEdit: () => void;
+  icon: string;
+  name: string;
+  description: string;
 }
 
-const AddHabitDrawer = ({ onAdd }: AddHabitDrawerProps) => {
+const EditHabitDrawer = ({
+  habit_id,
+  icon,
+  name,
+  description,
+  onEdit,
+}: EditHabitDrawer) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      icon: "",
-      name: "",
-      description: "",
+    values: {
+      icon: icon,
+      name: name,
+      description: description,
     },
   });
 
   const [open, setOpen] = useState(false);
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    await addHabit(values);
+    await editHabit(values, habit_id);
     setOpen(false);
-    onAdd();
+    onEdit();
   };
 
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild onClick={() => form.reset()}>
-        <Button variant="outline">
-          <span>Add</span>
-          <Plus />
-        </Button>
+        <Edit className="size-5" />
       </DrawerTrigger>
       <DrawerContent className="min-h-7/10 max-w-[28rem] mx-auto">
         <DrawerHeader>
-          <DrawerTitle className="text-2xl">New Habit</DrawerTitle>
+          <DrawerTitle className="text-2xl">Edit Habit</DrawerTitle>
         </DrawerHeader>
         <div className="p-4 ">
           <Form {...form}>
@@ -79,6 +87,7 @@ const AddHabitDrawer = ({ onAdd }: AddHabitDrawerProps) => {
                   <FormItem className="flex flex-col items-center justify-center">
                     <FormControl>
                       <IconPicker
+                        placeHolder={icon}
                         selectedIcon={field.value}
                         onIconSelect={(iconName) => field.onChange(iconName)}
                       />
@@ -121,20 +130,21 @@ const AddHabitDrawer = ({ onAdd }: AddHabitDrawerProps) => {
               />
               <div className="flex flex-col gap-4">
                 <Button type="submit" className="w-full">
-                  Create
+                  Save Changes
                 </Button>
                 <DrawerClose asChild>
                   <Button variant="outline" className="w-full">
                     Cancel
                   </Button>
                 </DrawerClose>
+                <DeleteHabitDialog habit_id={habit_id} onDelete={onEdit} />
               </div>
             </form>
-          </Form>{" "}
+          </Form>
         </div>
       </DrawerContent>
     </Drawer>
   );
 };
 
-export default AddHabitDrawer;
+export default EditHabitDrawer;

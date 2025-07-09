@@ -56,7 +56,7 @@ const Calendar = ({ habit_id, onAction, completedDays }: CalendarProps) => {
     onAction();
   };
   const handleRemove = async (date: string) => {
-    await removeDay(date);
+    await removeDay(habit_id, date);
     onAction();
   };
 

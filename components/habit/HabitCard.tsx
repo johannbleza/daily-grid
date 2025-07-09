@@ -15,6 +15,7 @@ interface HabitCardProps {
   id: string;
   description: string;
   icon: string;
+  onEdit: () => void;
 }
 const HabitCard = ({
   id,
@@ -22,6 +23,7 @@ const HabitCard = ({
   icon,
   description,
   color = "slate",
+  onEdit,
 }: HabitCardProps) => {
   const [completedDays, setCompletedDays] = useState<Day[]>([]);
 
@@ -45,7 +47,7 @@ const HabitCard = ({
     fetchCompletedDays();
   };
   const handleRemove = async (date: string) => {
-    await removeDay(date);
+    await removeDay(id, date);
     fetchCompletedDays();
   };
 
@@ -78,6 +80,7 @@ const HabitCard = ({
         description={description}
         icon={icon}
         onAction={fetchCompletedDays}
+        onEdit={onEdit}
       />
     </div>
   );

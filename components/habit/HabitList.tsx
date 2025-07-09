@@ -39,6 +39,7 @@ const HabitList = () => {
       <div className="sm:grid grid-cols-2 gap-4 flex flex-col">
         {habits.map(({ id, name, icon, description }) => (
           <HabitCard
+            onEdit={fetchHabits}
             key={id}
             id={id!}
             name={name}
