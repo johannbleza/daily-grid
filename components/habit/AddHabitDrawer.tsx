@@ -35,7 +35,11 @@ const formSchema = z.object({
   description: z.string(),
 });
 
-const AddHabitDrawer = () => {
+interface AddHabitDrawerProps {
+  onAdd: () => void;
+}
+
+const AddHabitDrawer = ({ onAdd }: AddHabitDrawerProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -50,6 +54,7 @@ const AddHabitDrawer = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     await addHabit(values);
     setOpen(false);
+    onAdd();
   };
 
   return (
