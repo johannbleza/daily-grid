@@ -16,12 +16,12 @@ const DaySquare = ({
   color,
 }: DaySquareProps) => {
   const today = new Date();
-  const [month, day] = date.split("/").map(Number);
-  // const currentDate = today.toLocaleDateString();
   const dateObj = new Date(date);
 
   // const isToday = date === currentDate;
   const isFuture = today < dateObj;
+  const month = parseInt(date.split("-")[1]);
+  const day = parseInt(date.split("-")[2].split("T")[0]);
 
   const isComplete = completedDays.some((obj) => obj.date.includes(date));
 

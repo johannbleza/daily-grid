@@ -40,8 +40,12 @@ const HabitCard = ({
     fetchCompletedDays();
   }, [fetchCompletedDays]);
 
-  const today = new Date().toISOString();
-  const isComplete = completedDays.some((obj) => obj.date.includes(today));
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const isComplete = completedDays.some((obj) =>
+    obj.date.includes(today.toISOString()),
+  );
 
   const handleComplete = async (date: string) => {
     const toastId = date;
@@ -84,7 +88,9 @@ const HabitCard = ({
             isComplete && `${colorMap[color].light}`,
           )}
           onClick={
-            isComplete ? () => handleRemove(today) : () => handleComplete(today)
+            isComplete
+              ? () => handleRemove(today.toISOString())
+              : () => handleComplete(today.toISOString())
           }
         >
           <Check className="text-gray-300" />
