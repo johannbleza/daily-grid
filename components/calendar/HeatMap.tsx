@@ -1,6 +1,7 @@
 "use client";
 import DaySquare from "@/components/calendar/DaySquare";
 import { colorMap, daysOfWeek, gridGap, squareSize } from "@/lib/constants";
+import { Day } from "@/lib/types/day";
 import { cn } from "@/lib/utils";
 import { useEffect, useMemo, useRef } from "react";
 
@@ -8,12 +9,14 @@ interface HeatMapProps {
   showDaysOfWeek?: boolean;
   showMonths?: boolean;
   color?: keyof typeof colorMap;
+  completedDays: Day[];
 }
 
 const HeatMap = ({
   showMonths = false,
   showDaysOfWeek = false,
   color = "slate",
+  completedDays,
 }: HeatMapProps) => {
   const today = new Date();
   const currentYear = today.getFullYear();
@@ -83,6 +86,7 @@ const HeatMap = ({
       >
         {days.map((day) => (
           <DaySquare
+            completedDays={completedDays}
             key={day}
             date={day}
             showMonths={showMonths}

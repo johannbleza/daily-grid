@@ -17,7 +17,6 @@ const HabitList = () => {
       console.log(error);
     }
   }, []);
-  console.log(habits);
 
   useEffect(() => {
     fetchHabits();
@@ -27,7 +26,7 @@ const HabitList = () => {
     <div className=" bg-zinc-950 min-h-dvh flex flex-col gap-4  items-center sm:items-start p-4  max-w-[52rem] mx-auto">
       <div className="flex justify-between items-center w-full">
         <h1 className="self-start text-2xl font-bold text-zinc-300">
-          My Habits (2)
+          My Habits ({habits.length})
         </h1>
         <div className="flex gap-2">
           <Button variant="outline">
@@ -38,8 +37,14 @@ const HabitList = () => {
         </div>
       </div>
       <div className="sm:grid grid-cols-2 gap-4 flex flex-col">
-        {habits.map(({ id, name, icon }) => (
-          <HabitCard key={id} name={name} icon={icon} />
+        {habits.map(({ id, name, icon, description }) => (
+          <HabitCard
+            key={id}
+            id={id!}
+            name={name}
+            icon={icon}
+            description={description!}
+          />
         ))}
       </div>
     </div>

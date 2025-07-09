@@ -23,3 +23,9 @@ export const getHabits = async () => {
   if (error) console.log(error.message);
   if (data) return data;
 };
+
+export const getHabit = async (id: string) => {
+  const { data, error } = await supabase.from("habit").select().eq("id", id);
+  if (error) console.log(error.message);
+  if (data) return data[0];
+};

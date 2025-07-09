@@ -1,20 +1,29 @@
 import { cn } from "@/lib/utils";
 import { borderRadius, colorMap, months, squareSize } from "@/lib/constants";
+import { Day } from "@/lib/types/day";
 
 interface DaySquareProps {
   showMonths: boolean;
   date: string;
   color: keyof typeof colorMap;
+  completedDays: Day[];
 }
 
-const DaySquare = ({ date, showMonths, color }: DaySquareProps) => {
+const DaySquare = ({
+  completedDays,
+  date,
+  showMonths,
+  color,
+}: DaySquareProps) => {
   const today = new Date();
   const [month, day] = date.split("/").map(Number);
-  const currentDate = today.toLocaleDateString();
+  // const currentDate = today.toLocaleDateString();
   const dateObj = new Date(date);
 
-  const isToday = date === currentDate;
+  // const isToday = date === currentDate;
   const isFuture = today < dateObj;
+
+  const isComplete = completedDays.some((obj) => obj.date.includes(date));
 
   return (
     <div>
@@ -29,7 +38,7 @@ const DaySquare = ({ date, showMonths, color }: DaySquareProps) => {
       <div
         className={cn(
           "size-4",
-          isToday
+          isComplete
             ? colorMap[color].normal
             : isFuture
               ? colorMap[color].light

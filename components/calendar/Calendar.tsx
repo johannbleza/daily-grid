@@ -1,10 +1,18 @@
 "use client";
+import { completeDay, removeDay } from "@/lib/actions/day.actions";
 import { daysOfWeek, months } from "@/lib/constants";
+import { Day } from "@/lib/types/day";
 import { cn } from "@/lib/utils";
 import { CalendarDays, ChevronLeft, ChevronRight } from "lucide-react";
 import { useMemo, useState } from "react";
 
-const Calendar = () => {
+interface CalendarProps {
+  habit_id: string;
+  onAction: () => void;
+  completedDays: Day[];
+}
+
+const Calendar = ({ habit_id, onAction, completedDays }: CalendarProps) => {
   const today = new Date();
   const [date, setDate] = useState(new Date());
 
@@ -43,6 +51,15 @@ const Calendar = () => {
     return results;
   }, [date]);
 
+  const handleComplete = async (date: string) => {
+    await completeDay({ date: date, habit_id: habit_id });
+    onAction();
+  };
+  const handleRemove = async (date: string) => {
+    await removeDay(date);
+    onAction();
+  };
+
   return (
     <div className="border-t-1 mt-4 p-4">
       <div className="grid grid-cols-7 gap-6 text-center">
@@ -53,16 +70,24 @@ const Calendar = () => {
         ))}
         {days.map((item) => {
           const [month, day] = item.split("/").map(Number);
+          const isComplete = completedDays.some((obj) =>
+            obj.date.includes(item),
+          );
           return (
             <div
               key={item}
               className="relative flex justify-center items-center"
+              onClick={
+                isComplete
+                  ? () => handleRemove(item)
+                  : () => handleComplete(item)
+              }
             >
               <div
                 className={cn(
                   "text-sm text-zinc-300 rounded flex size-6 justify-center items-center",
                   month != date.getMonth() + 1 && "text-zinc-600",
-                  // item === today.toLocaleDateString() && "bg-zinc-400/80",
+                  isComplete && "bg-slate-400/80 text-zinc-300",
                 )}
               >
                 {day}
