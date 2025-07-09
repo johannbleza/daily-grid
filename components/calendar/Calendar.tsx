@@ -86,7 +86,7 @@ const Calendar = ({ habit_id, onAction, completedDays }: CalendarProps) => {
           </h2>
         ))}
         {days.map((item) => {
-          const month = parseInt(item.split("-")[1]).toString();
+          const month = parseInt(item.split("-")[1]);
           const day = parseInt(item.split("-")[2].split("T")[0]).toString();
           const isComplete = completedDays.some((obj) =>
             obj.date.includes(item),
