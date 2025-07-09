@@ -86,6 +86,7 @@ const Calendar = ({ habit_id, onAction, completedDays }: CalendarProps) => {
           </h2>
         ))}
         {days.map((item) => {
+          today.setHours(0, 0, 0, 0);
           const month = parseInt(item.split("-")[1]);
           const day = parseInt(item.split("-")[2].split("T")[0]).toString();
           const isComplete = completedDays.some((obj) =>
@@ -94,7 +95,7 @@ const Calendar = ({ habit_id, onAction, completedDays }: CalendarProps) => {
           return (
             <div
               key={item}
-              className="relative flex justify-center items-center"
+              className="relative flex justify-center items-center cursor-pointer"
               onClick={
                 isComplete
                   ? () => handleRemove(item)
@@ -129,8 +130,8 @@ const Calendar = ({ habit_id, onAction, completedDays }: CalendarProps) => {
           </p>
         </div>
         <div className="flex gap-4">
-          <ChevronLeft onClick={handlePrevMonth} />
-          <ChevronRight onClick={handleNextMonth} />
+          <ChevronLeft onClick={handlePrevMonth} className="cursor-pointer" />
+          <ChevronRight onClick={handleNextMonth} className="cursor-pointer" />
         </div>
       </div>
     </div>

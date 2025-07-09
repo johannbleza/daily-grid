@@ -36,7 +36,9 @@ const DeleteHabitDialog = ({ habit_id, onDelete }: DeleteHabitDialogProps) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">Delete Habit</Button>
+        <Button variant="outline" className="cursor-pointer">
+          Delete Habit
+        </Button>
       </DialogTrigger>
       <DialogContent className="w-[400px]">
         <DialogHeader>
@@ -52,9 +54,13 @@ const DeleteHabitDialog = ({ habit_id, onDelete }: DeleteHabitDialogProps) => {
            gap-4"
         >
           <DialogClose asChild>
-            <Button>Cancel</Button>
+            <Button className="cursor-pointer">Cancel</Button>
           </DialogClose>
-          <Button variant="outline" onClick={handleDelete}>
+          <Button
+            variant="outline"
+            onClick={handleDelete}
+            className="cursor-pointer"
+          >
             Delete
           </Button>
         </DialogFooter>

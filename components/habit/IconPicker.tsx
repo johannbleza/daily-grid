@@ -263,7 +263,7 @@ export default function IconPicker({
           variant="outline"
           size="icon"
           className={cn(
-            "size-20 rounded-full border-2 border-dashed",
+            "size-20 rounded-full border-2 border-dashed cursor-pointer",
             selectedIcon
               ? "border-solid border-primary"
               : "border-muted-foreground/50",

@@ -84,7 +84,7 @@ const HabitCard = ({
         </div>
         <div
           className={cn(
-            `p-2 ${colorMap[color].normal} rounded-lg`,
+            `p-2 ${colorMap[color].normal} rounded-lg cursor-pointer`,
             isComplete && `${colorMap[color].light}`,
           )}
           onClick={
@@ -93,7 +93,7 @@ const HabitCard = ({
               : () => handleComplete(today.toISOString())
           }
         >
-          <Check className="text-gray-300" />
+          <Check className="text-gray-300 " />
         </div>
       </div>
       <HabitDrawer

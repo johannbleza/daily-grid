@@ -34,7 +34,7 @@ const HabitDrawer = ({
   const Icon = iconMap[icon];
   return (
     <Drawer>
-      <DrawerTrigger>
+      <DrawerTrigger className="cursor-pointer">
         <HeatMap completedDays={completedDays} />
       </DrawerTrigger>
       <DrawerContent className="mx-auto p-4  max-w-[28rem] flex justify-center items-center">

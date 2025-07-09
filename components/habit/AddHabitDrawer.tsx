@@ -69,7 +69,7 @@ const AddHabitDrawer = ({ onAdd }: AddHabitDrawerProps) => {
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild onClick={() => form.reset()}>
-        <Button variant="outline">
+        <Button variant="outline" className="cursor-pointer">
           <span>Add</span>
           <Plus />
         </Button>
@@ -129,11 +129,11 @@ const AddHabitDrawer = ({ onAdd }: AddHabitDrawerProps) => {
                 )}
               />
               <div className="flex flex-col gap-4">
-                <Button type="submit" className="w-full">
+                <Button type="submit" className="w-full cursor-pointer">
                   Create
                 </Button>
                 <DrawerClose asChild>
-                  <Button variant="outline" className="w-full">
+                  <Button variant="outline" className="w-full cursor-pointer">
                     Cancel
                   </Button>
                 </DrawerClose>
