@@ -1,8 +1,6 @@
 "use client";
-import { SortDesc } from "lucide-react";
 import AddHabitDrawer from "./AddHabitDrawer";
 import HabitCard from "./HabitCard";
-import { Button } from "../ui/button";
 import { useCallback, useEffect, useState } from "react";
 import { Habit } from "@/lib/types/habit";
 import { getHabits } from "@/lib/actions/habit.actions";
@@ -29,10 +27,6 @@ const HabitList = () => {
           My Habits ({habits.length})
         </h1>
         <div className="flex gap-2">
-          <Button variant="outline">
-            <span>Sort</span>
-            <SortDesc />
-          </Button>
           <AddHabitDrawer onAdd={fetchHabits} />
         </div>
       </div>

@@ -1,5 +1,6 @@
 import { Grid2x2Check } from "lucide-react";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+import { Button } from "../ui/button";
 
 const AppBar = () => {
   return (
@@ -15,7 +16,9 @@ const AppBar = () => {
           </div>
         </div>
         <SignedOut>
-          <SignInButton>Sign In</SignInButton>
+          <SignInButton>
+            <Button variant="outline">Sign In </Button>
+          </SignInButton>
         </SignedOut>
         <SignedIn>
           <UserButton />
