@@ -5,6 +5,7 @@ import { Day } from "@/lib/types/day";
 import { cn } from "@/lib/utils";
 import { CalendarDays, ChevronLeft, ChevronRight } from "lucide-react";
 import { useMemo, useState } from "react";
+import { toast } from "sonner";
 
 interface CalendarProps {
   habit_id: string;
@@ -52,12 +53,26 @@ const Calendar = ({ habit_id, onAction, completedDays }: CalendarProps) => {
   }, [date]);
 
   const handleComplete = async (date: string) => {
-    await completeDay({ date: date, habit_id: habit_id });
-    onAction();
+    try {
+      toast("Updating...", { position: "top-center" });
+      await completeDay({ date: date, habit_id: habit_id });
+      onAction();
+      toast.success("Day Completed!", { position: "top-center" });
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed", { position: "top-center" });
+    }
   };
   const handleRemove = async (date: string) => {
-    await removeDay(habit_id, date);
-    onAction();
+    try {
+      toast("Updating...", { position: "top-center" });
+      await removeDay(habit_id, date);
+      onAction();
+      toast.success("Day Completed!", { position: "top-center" });
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed", { position: "top-center" });
+    }
   };
 
   return (
