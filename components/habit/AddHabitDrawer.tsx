@@ -24,6 +24,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { addHabit } from "@/lib/actions/habit.actions";
 import { useState } from "react";
+import { toast } from "sonner";
 
 const formSchema = z.object({
   icon: z.string().min(2, {
@@ -52,9 +53,17 @@ const AddHabitDrawer = ({ onAdd }: AddHabitDrawerProps) => {
   const [open, setOpen] = useState(false);
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    await addHabit(values);
-    setOpen(false);
-    onAdd();
+    const toastId = "habit";
+    toast("Adding...", { id: toastId, position: "top-center" });
+    try {
+      await addHabit(values);
+      setOpen(false);
+      onAdd();
+      toast.success("Habit Added!", { id: toastId, position: "top-center" });
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed", { id: toastId, position: "top-center" });
+    }
   };
 
   return (

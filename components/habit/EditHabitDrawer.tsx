@@ -25,6 +25,7 @@ import { useForm } from "react-hook-form";
 import { editHabit } from "@/lib/actions/habit.actions";
 import { useState } from "react";
 import DeleteHabitDialog from "./DeleteHabitDialog";
+import { toast } from "sonner";
 
 const formSchema = z.object({
   icon: z.string().min(2, {
@@ -63,9 +64,17 @@ const EditHabitDrawer = ({
   const [open, setOpen] = useState(false);
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    await editHabit(values, habit_id);
-    setOpen(false);
-    onEdit();
+    const toastId = "habit";
+    toast("Updating...", { id: toastId, position: "top-center" });
+    try {
+      await editHabit(values, habit_id);
+      setOpen(false);
+      onEdit();
+      toast.success("Changes Saved!", { id: toastId, position: "top-center" });
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed", { id: toastId, position: "top-center" });
+    }
   };
 
   return (

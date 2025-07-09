@@ -11,6 +11,7 @@ import { Button } from "../ui/button";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { deleteHabit } from "@/lib/actions/habit.actions";
 import { useState } from "react";
+import { toast } from "sonner";
 
 interface DeleteHabitDialogProps {
   habit_id: string;
@@ -20,9 +21,17 @@ interface DeleteHabitDialogProps {
 const DeleteHabitDialog = ({ habit_id, onDelete }: DeleteHabitDialogProps) => {
   const [open, setOpen] = useState(false);
   const handleDelete = async () => {
-    await deleteHabit(habit_id);
-    setOpen(false);
-    onDelete();
+    const toastId = "habit";
+    toast("Deleting...", { id: toastId, position: "top-center" });
+    try {
+      await deleteHabit(habit_id);
+      setOpen(false);
+      onDelete();
+      toast.success("Habit Deleted!", { id: toastId, position: "top-center" });
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed", { id: toastId, position: "top-center" });
+    }
   };
   return (
     <Dialog open={open} onOpenChange={setOpen}>

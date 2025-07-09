@@ -44,25 +44,27 @@ const HabitCard = ({
   const isComplete = completedDays.some((obj) => obj.date.includes(today));
 
   const handleComplete = async (date: string) => {
+    const toastId = date;
+    toast("Updating...", { id: toastId, position: "top-center" });
     try {
-      toast("Updating...", { position: "top-center" });
       await completeDay({ date: date, habit_id: id });
       fetchCompletedDays();
-      toast.success("Day Completed!", { position: "top-center" });
+      toast.success("Day Completed!", { id: toastId, position: "top-center" });
     } catch (error) {
       console.log(error);
       toast.error("Failed", { position: "top-center" });
     }
   };
   const handleRemove = async (date: string) => {
+    const toastId = date;
+    toast("Updating...", { id: toastId, position: "top-center" });
     try {
-      toast("Updating...", { position: "top-center" });
       await removeDay(id, date);
       fetchCompletedDays();
-      toast.success("Day Updated!", { position: "top-center" });
+      toast.success("Day Updated!", { id: toastId, position: "top-center" });
     } catch (error) {
       console.log(error);
-      toast.error("Failed", { position: "top-center" });
+      toast.error("Failed", { id: toastId, position: "top-center" });
     }
   };
 
