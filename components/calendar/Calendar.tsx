@@ -42,8 +42,8 @@ const Calendar = ({ habit_id, onAction, completedDays }: CalendarProps) => {
 
     const results = [];
 
-    while (startDate.toLocaleDateString() != endDate.toLocaleDateString()) {
-      results.push(startDate.toLocaleDateString());
+    while (startDate.toISOString() != endDate.toISOString()) {
+      results.push(startDate.toISOString());
 
       // Iterator
       startDate.setDate(startDate.getDate() + 1);
@@ -86,7 +86,8 @@ const Calendar = ({ habit_id, onAction, completedDays }: CalendarProps) => {
           </h2>
         ))}
         {days.map((item) => {
-          const [month, day] = item.split("/").map(Number);
+          const month = parseInt(item.split("-")[1]).toString();
+          const day = parseInt(item.split("-")[2].split("T")[0]).toString();
           const isComplete = completedDays.some((obj) =>
             obj.date.includes(item),
           );
@@ -113,7 +114,7 @@ const Calendar = ({ habit_id, onAction, completedDays }: CalendarProps) => {
                 className={cn(
                   "absolute size-1 rounded-full bg-zinc-400  bottom-[-10px]",
 
-                  item != today.toLocaleDateString() && "hidden",
+                  item != today.toISOString() && "hidden",
                 )}
               ></div>
             </div>

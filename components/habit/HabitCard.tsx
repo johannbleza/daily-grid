@@ -40,7 +40,7 @@ const HabitCard = ({
     fetchCompletedDays();
   }, [fetchCompletedDays]);
 
-  const today = new Date().toLocaleDateString();
+  const today = new Date().toISOString();
   const isComplete = completedDays.some((obj) => obj.date.includes(today));
 
   const handleComplete = async (date: string) => {

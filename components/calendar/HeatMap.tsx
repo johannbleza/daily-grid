@@ -34,8 +34,8 @@ const HeatMap = ({
 
     const results = [];
 
-    while (startDate.toLocaleDateString() != endDate.toLocaleDateString()) {
-      results.push(startDate.toLocaleDateString());
+    while (startDate.toISOString() != endDate.toISOString()) {
+      results.push(startDate.toISOString());
 
       // Iterator
       startDate.setDate(startDate.getDate() + 1);
