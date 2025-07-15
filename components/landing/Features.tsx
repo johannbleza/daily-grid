@@ -2,11 +2,14 @@ import { features } from "@/lib/constants";
 
 const Features = () => {
   return (
-    <div className="flex flex-col gap-4 justify-center items-center mt-16 max-w-[52rem]">
+    <section
+      className="flex flex-col gap-4 justify-center items-center mt-16 max-w-[52rem] mx-auto"
+      id="features"
+    >
       <h1 className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-slate-300 to-slate-100 bg-clip-text text-transparent">
         Features
       </h1>
-      <div className="grid sm:grid-cols-3 gap-4 p-2" id="features">
+      <div className="grid sm:grid-cols-3 gap-4 p-2">
         {features.map(({ name, desc, icon }) => {
           const Icon = icon;
           return (
@@ -25,7 +28,7 @@ const Features = () => {
           );
         })}
       </div>
-    </div>
+    </section>
   );
 };
 
