@@ -65,6 +65,9 @@ import {
   Sparkles,
   type LucideIcon,
   Plus,
+  CircleCheckBig,
+  CircleFadingPlus,
+  ChartNoAxesCombined,
 } from "lucide-react";
 export const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -86,6 +89,24 @@ export const months = [
 export const squareSize = 10;
 export const borderRadius = 2;
 export const gridGap = 3;
+
+export const features = [
+  {
+    name: "Visual Progress",
+    desc: "See your habits build up day by day with our unique grid visualization, making progress satisfying and clear.",
+    icon: CircleCheckBig,
+  },
+  {
+    name: "Simple Setup",
+    desc: "Add new habits in seconds with an intuitive interface, allowing you to focus on building, not configuring.",
+    icon: CircleFadingPlus,
+  },
+  {
+    name: "Stay Consistent",
+    desc: "Mark habits complete with a tap and see your consistency grow, building powerful momentum.",
+    icon: ChartNoAxesCombined,
+  },
+];
 
 export const colorMap: Record<
   string,

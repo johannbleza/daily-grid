@@ -1,9 +1,11 @@
+import Features from "@/components/landing/Features";
 import Hero from "@/components/landing/Hero";
 
 export default function Page() {
   return (
-    <div className="max-w-[60rem] mx-auto">
+    <div className="w-full scroll-smooth">
       <Hero />
+      <Features />
     </div>
   );
 }
