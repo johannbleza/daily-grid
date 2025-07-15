@@ -16,7 +16,7 @@ const AppBar = () => {
           </div>
         </div>
         <SignedOut>
-          <SignInButton>
+          <SignInButton mode="modal">
             <Button variant="outline">Sign In </Button>
           </SignInButton>
         </SignedOut>
