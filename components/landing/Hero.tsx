@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const Hero = () => {
   return (
-    <div className="flex items-center mt-12 p-2 flex-col gap-4 text-center">
+    <div className="flex items-center mt-12 p-2 flex-col gap-4 md:gap-6 text-center">
       <h1 className="text-4xl md:text-6xl font-bold max-w-[40rem]">
         Build Lasting Habits with{" "}
         <span className="text-5xl md:text-7xl bg-gradient-to-r from-slate-300 to-slate-100 bg-clip-text text-transparent">
