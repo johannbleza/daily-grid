@@ -19,6 +19,7 @@ const HeatMap = ({
   completedDays,
 }: HeatMapProps) => {
   const today = new Date();
+  today.setDate(today.getDate() + 1);
   const currentYear = today.getFullYear();
   const currentMonth = today.getMonth();
 
@@ -29,8 +30,8 @@ const HeatMap = ({
     startDate.setHours(0, 0, 0, 0);
     endDate.setHours(0, 0, 0, 0);
 
-    startDate.setDate(startDate.getDate() - startDate.getDay()); // Sunday Start
-    endDate.setDate(endDate.getDate() + (7 - endDate.getDay())); // Saturday End
+    startDate.setDate(startDate.getDate() - startDate.getDay() + 1); // Sunday Start
+    endDate.setDate(endDate.getDate() + (8 - endDate.getDay())); // Saturday End
 
     const results = [];
 

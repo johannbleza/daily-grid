@@ -16,6 +16,7 @@ interface CalendarProps {
 const Calendar = ({ habit_id, onAction, completedDays }: CalendarProps) => {
   const today = new Date();
   const [date, setDate] = useState(new Date());
+  today.setDate(today.getDate() + 1);
 
   const handlePrevMonth = () => {
     const newDate = new Date(date);
@@ -37,8 +38,8 @@ const Calendar = ({ habit_id, onAction, completedDays }: CalendarProps) => {
     startDate.setHours(0, 0, 0, 0);
     endDate.setHours(0, 0, 0, 0);
 
-    startDate.setDate(startDate.getDate() - startDate.getDay()); // Sunday Start
-    endDate.setDate(endDate.getDate() + (7 - endDate.getDay())); // Saturday End
+    startDate.setDate(startDate.getDate() - startDate.getDay() + 1); // Sunday Start
+    endDate.setDate(endDate.getDate() + (8 - endDate.getDay())); // Saturday End
 
     const results = [];
 
@@ -114,7 +115,6 @@ const Calendar = ({ habit_id, onAction, completedDays }: CalendarProps) => {
               <div
                 className={cn(
                   "absolute size-1 rounded-full bg-zinc-400  bottom-[-10px]",
-
                   item != today.toISOString() && "hidden",
                 )}
               ></div>

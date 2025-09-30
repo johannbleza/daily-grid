@@ -18,7 +18,6 @@ const DaySquare = ({
   const today = new Date();
   const dateObj = new Date(date);
 
-  // const isToday = date === currentDate;
   const isFuture = today < dateObj;
   const month = parseInt(date.split("-")[1]);
   const day = parseInt(date.split("-")[2].split("T")[0]);
