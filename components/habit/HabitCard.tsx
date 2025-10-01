@@ -42,6 +42,7 @@ const HabitCard = ({
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
+  today.setDate(today.getDate() + 1);
 
   const isComplete = completedDays.some((obj) =>
     obj.date.includes(today.toISOString()),

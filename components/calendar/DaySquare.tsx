@@ -8,7 +8,6 @@ interface DaySquareProps {
   color: keyof typeof colorMap;
   completedDays: Day[];
 }
-
 const DaySquare = ({
   completedDays,
   date,
@@ -16,6 +15,7 @@ const DaySquare = ({
   color,
 }: DaySquareProps) => {
   const today = new Date();
+  today.setDate(today.getDate() + 1);
   const dateObj = new Date(date);
 
   const isFuture = today < dateObj;
